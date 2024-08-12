@@ -1,0 +1,47 @@
+@startuml
+!$API_LINK = "https://space."
+!$SAN_AL_LINK = "https://space."
+!$SAN_AL_NAME = "Санитайзинг"
+!$RESP_LINK = "https://space."
+start
+ : вызвана [[!$API_LINK команда]] "Санитайзинг и проверка по словарю";
+group Санитайзинг
+note
+[[$SAN_AL_LINK $SAN_AL_NAME]]
+end note
+
+if (есть запрещенные символы) then (yes)
+  :удаляем\заменяем запрещенные символы;
+  :установливаем у объекта значение параметра "changeType"  = sanitizing;
+else (No)
+endif
+end group
+group Проверка по словарю
+
+while ( )
+  :проверка атрибута;
+  if (есть в словаре) then  (yes)
+    :обогащаем атрибут "dictId";
+    :заменяем значение на оригинал (для синонимов);
+    :установливаем у объекта ??? значение параметра "changeType"  = dictionary \n ??? а если оно уже равно значению sanitizing ;
+break
+else (no)
+
+if (i<=0 (первая итерация)) then (No )
+  :выход из цикла;
+  break
+  else (Yes)
+  :исправляем опечатку;
+  :получаем перечень возможных значений;
+  :i++ (фиксируем итерацию);
+
+ endif
+
+endif
+ endwhile ( )
+
+end group
+
+ : отправляем [[$RESP_LINK ответ]];
+stop
+@enduml
